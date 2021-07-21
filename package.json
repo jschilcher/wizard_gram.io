@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +19,9 @@
   "homepage": "https://github.com/jschilcher/wizard_gram.io#readme",
   "dependencies": {
     "config": "^3.3.6",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "joi": "^17.4.1",
     "mongoose": "^5.13.3",
     "nodemon": "^2.0.12"
   }
