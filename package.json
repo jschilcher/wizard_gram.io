@@ -1,0 +1,22 @@
+{
+  "name": "wizard_gram.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jschilcher/wizard_gram.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jschilcher/wizard_gram.io/issues"
+  },
+  "homepage": "https://github.com/jschilcher/wizard_gram.io#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
