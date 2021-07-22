@@ -4,7 +4,32 @@ const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
 const { profile, validateProfile } = require("../models/profile");
 
-//Add your Get Request Here
+router.get('/user', async (req, res) => {
+  try {
+      const user = await User.find();
+      return res.send(user);
+  } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+router.get('/post', async (req, res) => {
+  try {
+      const post = await Post.find();
+      return res.send(post);
+  } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+router.get('/profile', async (req, res) => {
+  try {
+      const profile = await Profile.find();
+      return res.send(profile);
+  } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
 
 //POST Request Start Below
 router.post("/user", async (req, res) => {
