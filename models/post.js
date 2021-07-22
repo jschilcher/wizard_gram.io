@@ -13,7 +13,7 @@ const Post = mongoose.model("post", postSchema);
 function validatePost(post) {
   const Schema = Joi.object({
     text: Joi.string().min(5).max(1000).required(),
-    image: Joi.image().required(),
+    image: Joi.string().required(),
   });
   return Schema.validate(post);
 }

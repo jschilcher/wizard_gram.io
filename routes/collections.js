@@ -7,7 +7,7 @@ const { profile, validateProfile } = require("../models/profile");
 //Add your Get Request Here
 
 //POST Request Start Below
-router.post("/", async (req, res) => {
+router.post("/user", async (req, res) => {
   try {
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error);
@@ -27,5 +27,24 @@ router.post("/", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
+
+// router.post("/posts", async (req, res) => {
+//   try {
+//     const { error } = validatePost(req.body);
+//     if (error) return res.status(400).send(error);
+//     //TODO: Validation!
+//     const post = new Post({
+//       text: req.body.text,
+//       image: req.body,
+//       like: req.body,
+//     });
+
+//     await post.save();
+
+//     return res.send(post);
+//   } catch (ex) {
+//     return res.status(500).send(`Internal Server Error: ${ex}`);
+//   }
+// });
 
 module.exports = router;
