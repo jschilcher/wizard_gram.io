@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
 const { profile, validateProfile } = require("../models/profile");
@@ -50,12 +51,13 @@ router.post("/user", async (req, res) => {
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error);
     //TODO: Validation!
+    const salt = await bcrypt.genSalt(10);
     const user = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      password: await bcrypt.hash(req.body.password, salt),
     });
 
     await user.save();
