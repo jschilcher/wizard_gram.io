@@ -72,4 +72,17 @@ router.post("/user", async (req, res) => {
 //   }
 // });
 
+router.put('/like/:postId', async (req,res) => {
+  try{
+      const post = await Post.findById(req.params.postId)
+      post.like = post.like + 1
+      await post.save()
+      return res.status(200).send(post)
+
+  } catch(err){
+      return res.status(500).send(`Internal Server Error: ${err}`);
+  }
+
+})
+
 module.exports = router;
