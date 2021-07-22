@@ -4,6 +4,7 @@ const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
 const { profile, validateProfile } = require("../models/profile");
 
+//get all the users data
 router.get('/user', async (req, res) => {
   try {
       const user = await User.find();
@@ -13,6 +14,17 @@ router.get('/user', async (req, res) => {
   }
 });
 
+//will get a specific user
+router.get('/userId', async (req, res) => {
+  try {
+      const user = await User.find();
+      return res.send(user);
+  } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+//grabs all the posts, not a specific users posts
 router.get('/post', async (req, res) => {
   try {
       const post = await Post.find();
@@ -22,6 +34,7 @@ router.get('/post', async (req, res) => {
   }
 });
 
+//gets all the profiles, not a specific profile
 router.get('/profile', async (req, res) => {
   try {
       const profile = await Profile.find();
@@ -38,11 +51,11 @@ router.post("/user", async (req, res) => {
     if (error) return res.status(400).send(error);
     //TODO: Validation!
     const user = new User({
-      firstName: req.body.text,
-      lastName: req.body,
-      username: req.body,
-      email: req.body,
-      password: req.body,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
     });
 
     await user.save();
@@ -53,25 +66,27 @@ router.post("/user", async (req, res) => {
   }
 });
 
-// router.post("/posts", async (req, res) => {
-//   try {
-//     const { error } = validatePost(req.body);
-//     if (error) return res.status(400).send(error);
-//     //TODO: Validation!
-//     const post = new Post({
-//       text: req.body.text,
-//       image: req.body,
-//       like: req.body,
-//     });
+//creates a post(maybe tie this to a specific user)
+router.post("/post", async (req, res) => {
+  try {
+    const {error} = validatePost(req.body);
+    if (error) return res.status(400).send(error);
 
-//     await post.save();
+    const post = new Post({
+      username: req.body.username,
+      text: req.body.text,
+      image: req.body.image,
+    });
 
-//     return res.send(post);
-//   } catch (ex) {
-//     return res.status(500).send(`Internal Server Error: ${ex}`);
-//   }
-// });
+    await post.save();
 
+    return res.send(post);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+})
+
+//updates the likes on a specific post
 router.put('/like/:postId', async (req,res) => {
   try{
       const post = await Post.findById(req.params.postId)
