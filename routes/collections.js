@@ -4,7 +4,9 @@ const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
 const { profile, validateProfile } = require("../models/profile");
 
+//Add your Get Request Here
 
+//POST Request Start Below
 router.post("/", async (req, res) => {
   try {
     const { error } = validateUser(req.body);
