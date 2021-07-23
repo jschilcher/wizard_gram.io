@@ -88,6 +88,26 @@ router.post("/post", async (req, res) => {
   }
 })
 
+
+router.post("/image", async (req, res) => {
+  try {
+    const {error} = validateImage(req.body);
+    if (error) return res.status(400).send(error);
+
+    const image = new image({
+      image: req.body.image,
+    });
+
+    await image.save();
+
+    return res.send(image);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`)
+  }
+})
+
+
+
 //updates the likes on a specific post
 router.put('/like/:postId', async (req,res) => {
   try{
