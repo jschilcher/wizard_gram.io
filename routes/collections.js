@@ -89,6 +89,24 @@ router.post("/post", async (req, res) => {
   }
 })
 
+router.post("/friends", async (req, res) => {
+  try {
+    const {error} = validateFriends(req.body);
+    if (error) return res.status(400).send(error);
+
+    const friends = new Friends ({
+      requester: req.body.requester,
+      recepient: req.body.recepient,
+    });
+
+    await friends.save();
+
+    return res.send(friends);
+  }catch (ex) {
+    return res.send(500).send(`Internal Server Error: ${ex}`);
+  }
+})
+
 
 router.post("/image", async (req, res) => {
   try {
