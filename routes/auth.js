@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
 
         if(!validPassword)  return res.status(400).send(`Invalid email or password.`);
 
-        const token = jwt.sign({_id:user._id, name: user.name}, config.get("jwtSecret"));
+        const token = user.generateAuthToken();
         return res.send(token);
     }catch(ex) {
         return res.status(500).send(`Internal server error: ${ex}`);

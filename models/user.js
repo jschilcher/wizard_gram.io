@@ -22,6 +22,10 @@ const userSchema = mongoose.Schema({
   friends: { type: Array, default: [] },
 });
 
+userSchema.methods.generateAuthToken = function () {
+  return jwt.sign({_id:this._id, name:this.name}, config.get("jwtSecret"))
+}
+
 const User = mongoose.model("user", userSchema);
 
 function validateUser(user) {

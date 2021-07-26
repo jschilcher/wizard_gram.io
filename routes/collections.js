@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const config = require("config");
+const jwt = require("jsonwebtoken");
 const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
 const { profile, validateProfile } = require("../models/profile");
@@ -62,6 +64,13 @@ router.post("/user", async (req, res) => {
     });
 
     await user.save();
+
+    const token = user.generateAuthToken();
+
+    return res
+      .header("x-auth-token", token)
+      .header("access-control-expose-headers", "x-auth-token")
+      .send({_id:user._id, name:user.name, email:user.email});
 
     return res.send(user);
   } catch (ex) {
