@@ -15,8 +15,7 @@ const userSchema = mongoose.Schema({
     maxlength: 50,
   },
   password: { type: String, required: true, minlength: 5, maxlength: 1000 },
-  friends: {type: Array, default: []},
-  //   friends: [{ type: Schema.Types.ObjectId, ref: "friends" }],
+  friends: { type: Array, default: [] },
 });
 
 const User = mongoose.model("user", userSchema);
