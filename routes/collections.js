@@ -49,6 +49,26 @@ router.get("/profile", async (req, res) => {
   }
 });
 
+//Get Friends
+router.get("/:id/friends", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    return res.send(user.friends);
+  } catch (ex) {
+    return res.status(500).json("You have no friends");
+  }
+});
+
+//Get Friends
+router.get("/:id/friends/post", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    return res.send(user.friends.post);
+  } catch (ex) {
+    return res.status(500).json("You have no friends");
+  }
+});
+
 //POST Request Start Below
 router.post("/user", auth, async (req, res) => {
   try {
@@ -71,7 +91,7 @@ router.post("/user", auth, async (req, res) => {
     return res
       .header("x-auth-token", token)
       .header("access-control-expose-headers", "x-auth-token")
-      .send({_id:user._id, name:user.name, email:user.email});
+      .send({ _id: user._id, name: user.name, email: user.email });
 
     return res.send(user);
   } catch (ex) {
@@ -80,7 +100,7 @@ router.post("/user", auth, async (req, res) => {
 });
 
 //creates a post(maybe tie this to a specific user)
-router.post("/post", async (req, res) => {
+router.post("/:id/post", async (req, res) => {
   try {
     const { error } = validatePost(req.body);
     if (error) return res.status(400).send(error);
