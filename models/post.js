@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 
-const postSchema = mongoose.Schema({
-  username: { type: String, required: true, minlength: 5, maxlength: 50 },
-  text: { type: String, required: true, minlength: 5, maxlength: 1000 },
-  image: { type: String, required: true },
-  like: { type: Number, required: true, default: 0 },
-  dateAdded: { type: Date, default: Date.now },
-});
+const postSchema = mongoose.Schema(
+  {
+    username: { type: String, required: true, minlength: 5, maxlength: 50 },
+    text: { type: String, required: true, minlength: 5, maxlength: 1000 },
+    image: { type: String, required: true },
+    like: { type: Number, required: true, default: 0 },
+    dateAdded: { type: Date, default: Date.now },
+  },
+  { timestamps: true }
+);
 
 const Post = mongoose.model("post", postSchema);
 
