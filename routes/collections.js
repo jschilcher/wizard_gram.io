@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const auth = require("../middleware/auth");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const { User, validateUser } = require("../models/user");
@@ -49,7 +50,7 @@ router.get("/profile", async (req, res) => {
 });
 
 //POST Request Start Below
-router.post("/user", async (req, res) => {
+router.post("/user", auth, async (req, res) => {
   try {
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error);
