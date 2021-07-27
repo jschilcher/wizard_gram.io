@@ -20,9 +20,9 @@ router.get("/user", async (req, res) => {
 });
 
 //will get a specific user
-router.get("/userId", async (req, res) => {
+router.get("/user/:id", async (req, res) => {
   try {
-    const user = await User.find();
+    const user = await User.findById(req.params.id);
     return res.send(user);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
