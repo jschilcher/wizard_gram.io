@@ -20,9 +20,9 @@ router.get("/user", async (req, res) => {
 });
 
 //will get a specific user
-router.get("/userId", async (req, res) => {
+router.get("/user/:id", async (req, res) => {
   try {
-    const user = await User.find();
+    const user = await User.findById(req.params.id);
     return res.send(user);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
@@ -59,7 +59,7 @@ router.get("/:id/friends", async (req, res) => {
   }
 });
 
-//Get Friends
+//Get Friend's Posts
 router.get("/:id/friends/post", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -201,7 +201,7 @@ router.put("/:id/follow", async (req, res) => {
       if (!user.friends.includes(req.body.userId)) {
         await user.updateOne({ $push: { friends: req.body.userId } });
         await currentUser.updateOne({ $push: { friends: req.body.userId } });
-        res.status(200).json("You are now friends with this user!");
+        res.status(200).json(`You are now friends with this user`);
       } else {
         res.status(403).json("you are already friends with this user");
       }
