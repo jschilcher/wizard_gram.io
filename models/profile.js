@@ -7,7 +7,7 @@ const profileSchema = mongoose.Schema({
   username: { type: String, required: true, minlength: 5, maxlength: 50 },
 });
 
-const profile = mongoose.model("profile", profileSchema);
+const Profile = mongoose.model("profile", profileSchema);
 
 function validateProfile(profile) {
   const Schema = Joi.object({
@@ -19,6 +19,6 @@ function validateProfile(profile) {
 }
 
 module.exports = {
-  profile: profile,
+  Profile: Profile,
   validateProfile: validateProfile,
 };

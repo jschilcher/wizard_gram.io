@@ -6,7 +6,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const { User, validateUser } = require("../models/user");
 const { Post, validatePost } = require("../models/post");
-const { profile, validateProfile } = require("../models/profile");
+const { Profile, validateProfile } = require("../models/profile");
 const { Friends, validateFriends } = require("../models/friends");
 
 //get all the users data
