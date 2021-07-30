@@ -40,6 +40,15 @@ router.get("/post", async (req, res) => {
 });
 
 //gets all the profiles, not a specific profile
+router.get("/:id/profile", async (req, res) => {
+  try {
+    const profile = await Profile.find();
+    return res.send(profile);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
 router.get("/profile", async (req, res) => {
   try {
     const profile = await Profile.find();
