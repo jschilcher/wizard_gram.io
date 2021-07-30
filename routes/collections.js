@@ -49,6 +49,8 @@ router.get("/profile", async (req, res) => {
   }
 });
 
+
+
 //Get Friends
 router.get("/:id/friends", async (req, res) => {
   try {
@@ -116,6 +118,27 @@ router.post("/:id/post", async (req, res) => {
     return res.send(post);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+router.post("/:id/profile", async (req, res) => {
+  try {
+    let profile = await User.findById(req.params.id);
+      const currentprofile = await Profile.findById(req.body.userId);
+    // const { error } = validateProfile(req.body);
+    // if (error) return res.status(400).status(error);
+
+    profile = new Profile({
+      image: req.body.image,
+      text: req.body.text,
+      username: req.body.username,
+    });
+
+    await profile.save();
+
+    return res.send(profile);
+  } catch (err) {
+    return res.status(500).send(`Internal Server Error: ${err}`);
   }
 });
 
