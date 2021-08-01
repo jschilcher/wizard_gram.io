@@ -70,7 +70,9 @@ router.get("/:id/friends/post", async (req, res) => {
 });
 
 //POST Request Start Below
-router.post("/user", auth, async (req, res) => {
+
+//Register User
+router.post("/user", /*auth,*/ async (req, res) => {
   try {
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error);
